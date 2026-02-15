@@ -1,8 +1,12 @@
 // Initially hide the "drawACard" button by setting its visibility to hidden
 // This keeps the layout intact
-document.getElementById("drawACard").style.visibility = "hidden";
-document.getElementById("showdown").style.visibility = "hidden";
-document.getElementById("playAgain").style.visibility = "hidden";
+const drawACardButton = document.getElementById("drawACard");
+const showdownButton = document.getElementById("showdown");
+const playAgainButton = document.getElementById("playAgain");
+
+if (drawACardButton) drawACardButton.style.visibility = "hidden";
+if (showdownButton) showdownButton.style.visibility = "hidden";
+if (playAgainButton) playAgainButton.style.visibility = "hidden";
 
 
 
@@ -12,6 +16,17 @@ let dealerCards = [];
 let playerSum=0;
 let money=100;
 let stake=0;
+
+
+
+function openRegister() {
+    window.location.href = "login_window.html";
+}
+
+
+
+
+
 
 function updateMoneyDisplay() {
     document.getElementById("money").textContent = money;
@@ -91,7 +106,9 @@ let cardsElements = document.querySelectorAll(".cards");
 // Loop through each element and set its visibility to "hidden"
 cardsElements.forEach(element => {element.style.visibility = "hidden";});
 
-document.getElementById("betButton").addEventListener("click", function() {
+const betButton = document.getElementById("betButton");
+if (betButton) {
+betButton.addEventListener("click", function() {
     // Get the input field where the user enters the stake
     let stakeInput = document.getElementById("stake");
 
@@ -124,6 +141,7 @@ document.getElementById("betButton").addEventListener("click", function() {
         updateMessage("Invalid stake. Please enter a valid amount that is less than or equal to your available money.");
     }
 });
+}
 
 function StartGame() {
     console.log("Starting game with stake:", stake);
@@ -146,15 +164,20 @@ function StartGame() {
     document.getElementById("dealerCards").textContent = dealerCards[0] + " , ??";
 }
 
-document.getElementById("drawACard").addEventListener("click", function() {
-    DrawCard();
-});
+if (drawACardButton) {
+    drawACardButton.addEventListener("click", function() {
+        DrawCard();
+    });
+}
 
-document.getElementById("playAgain").addEventListener("click", function() {
-    resetGame();
-});
+if (playAgainButton) {
+    playAgainButton.addEventListener("click", function() {
+        resetGame();
+    });
+}
 
-document.getElementById("showdown").addEventListener("click", function() {
+if (showdownButton) {
+showdownButton.addEventListener("click", function() {
     let dealerSum = calculateHandSum(dealerCards);
 
     while (dealerSum < 17) {
@@ -183,6 +206,7 @@ document.getElementById("showdown").addEventListener("click", function() {
 
     finishRound();
 });
+}
 
 function DrawCard(){
     if (!deck) return;
